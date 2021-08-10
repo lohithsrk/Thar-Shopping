@@ -1,0 +1,24 @@
+.icon {
+	position: relative;
+	top: -4px;
+}
+
+.carouselImage {
+	height: 100px;
+}
+
+.slider img,
+.card-image {
+	height: 450px;
+	object-fit: contain;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.imageStyle {
+	width: 100%;
+	height: 50px;
+	object-fit: cover;
+}

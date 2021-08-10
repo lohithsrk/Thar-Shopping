@@ -25,6 +25,7 @@ const Login = ({ history }) => {
 	}, [user, history]);
 
 	const roleBasedRedirect = (res) => {
+		console.log(history)
 		let intended = history.location.state;
 		if (intended) {
 			history.push(intended.from);

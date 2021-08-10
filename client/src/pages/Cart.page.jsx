@@ -6,7 +6,7 @@ import ProductCartIncheckout from '../components/cards/ProductCartIncheckout.com
 import { userCart } from '../utils/user.utils';
 
 const Cart = ({ history }) => {
-	const { user, cart } = useSelector((state) => state);
+	const { user, cart } = useSelector((state) => ({ ...state }));
 	const dispatch = useDispatch();
 
 	const getTotal = () => {
@@ -16,7 +16,7 @@ const Cart = ({ history }) => {
 	};
 
 	const saveOrderToDb = () => {
-		userCart({ cart }, user.token)
+		userCart(cart, user.token)
 			.then((res) => {
 				if (res.data.ok) history.push('/checkout');
 			})

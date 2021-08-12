@@ -6,6 +6,7 @@ const cors = require('cors');
 const fs = require('fs');
 const compression = require('compression');
 const path = require('path');
+const enforce = require('express-sslify');
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
@@ -26,11 +27,14 @@ app.use(morgan('dev'));
 app.use(bobyParser.json({ limit: '2mb' }));
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
-app.get('*', function (req, res) {
-	res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static(path.join(__dirname, 'client/build')));
+	app.get('*', function (req, res) {
+		res.sendFile(path.join(__dirname, 'client/build', 'index.html'));  
+	}
+}
 
 fs.readdirSync('./server/routes').map((route) =>
 	app.use('/api', require(`./server/routes/${route}`))

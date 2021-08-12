@@ -25,24 +25,11 @@ const Shop = () => {
 	const [ok, setOk] = useState(false);
 	const [categories, setCategories] = useState([]);
 	const [categoryIds, setCategoryIds] = useState([]);
-	const [star, setStar] = useState('');
+	// const [star, setStar] = useState('');
 	const [subs, setSubs] = useState([]);
-	const [sub, setSub] = useState('');
-	const [brands, setBrands] = useState([
-		'Apple',
-		'Samsung',
-		'Microsoft',
-		'Lenovo',
-		'ASUS'
-	]);
+	const brands = ['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'ASUS'];
 	const [brand, setBrand] = useState('');
-	const [colors, setColors] = useState([
-		'Black',
-		'Brown',
-		'Silver',
-		'White',
-		'Blue'
-	]);
+	const colors = ['Black', 'Brown', 'Silver', 'White', 'Blue'];
 	const [color, setColor] = useState('');
 	const [shipping, setShipping] = useState('');
 
@@ -93,8 +80,7 @@ const Shop = () => {
 
 		setCategoryIds([]);
 		setPrice(value);
-		setStar('');
-		setSub('');
+		// setStar('');
 		setBrand('');
 		setColor('');
 		setShipping('');
@@ -125,8 +111,7 @@ const Shop = () => {
 			payload: { text: '' }
 		});
 		setPrice([0, 0]);
-		setStar('');
-		setSub('');
+		// setStar('');
 		setBrand('');
 		setColor('');
 		setShipping('');
@@ -151,8 +136,6 @@ const Shop = () => {
 		});
 		setPrice([0, 0]);
 		setCategoryIds([]);
-		setStar(num);
-		setSub('');
 		setBrand('');
 		setColor('');
 		setShipping('');
@@ -184,14 +167,14 @@ const Shop = () => {
 		));
 
 	const handleSub = (sub) => {
-		setSub(sub);
+		// setSub(sub);
 		dispatch({
 			type: 'SEARCH_QUERY',
 			payload: { text: '' }
 		});
 		setPrice([0, 0]);
 		setCategoryIds([]);
-		setStar('');
+		// setStar('');
 		setBrand('');
 		setColor('');
 		setShipping('');
@@ -201,6 +184,7 @@ const Shop = () => {
 	const showBrands = () =>
 		brands.map((b) => (
 			<Radio
+				key={b}
 				value={b}
 				name={b}
 				checked={b === brand}
@@ -212,14 +196,13 @@ const Shop = () => {
 		));
 
 	const handleBrand = (e) => {
-		setSub('');
 		dispatch({
 			type: 'SEARCH_QUERY',
 			payload: { text: '' }
 		});
 		setPrice([0, 0]);
 		setCategoryIds([]);
-		setStar('');
+		// setStar('');
 		setColor('');
 		setBrand(e.target.value);
 		setShipping('');
@@ -229,6 +212,7 @@ const Shop = () => {
 	const showColors = () =>
 		colors.map((c) => (
 			<Radio
+				key={c}
 				value={c}
 				name={c}
 				checked={c === color}
@@ -240,14 +224,13 @@ const Shop = () => {
 		));
 
 	const handleColor = (e) => {
-		setSub('');
 		dispatch({
 			type: 'SEARCH_QUERY',
 			payload: { text: '' }
 		});
 		setPrice([0, 0]);
 		setCategoryIds([]);
-		setStar('');
+		// setStar('');
 		setBrand('');
 		setColor(e.target.value);
 		setShipping('');
@@ -277,14 +260,13 @@ const Shop = () => {
 	);
 
 	const handleShippingchange = (e) => {
-		setSub('');
 		dispatch({
 			type: 'SEARCH_QUERY',
 			payload: { text: '' }
 		});
 		setPrice([0, 0]);
 		setCategoryIds([]);
-		setStar('');
+		// setStar('');
 		setBrand('');
 		setColor('');
 		setShipping(e.target.value);

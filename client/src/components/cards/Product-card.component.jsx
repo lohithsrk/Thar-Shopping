@@ -3,7 +3,7 @@ import { Card, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
 import { EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import _ from 'lodash';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Laptop from '../../images/laptop.png';
 import showAverage from '../../utils/rating.utils';
@@ -14,7 +14,6 @@ const ProductCard = ({ product }) => {
 	const { title, description, slug, images, price } = product;
 
 	const dispatch = useDispatch();
-	const { user, cart } = useSelector((state) => ({ ...state }));
 
 	const [toolTip, setToolTip] = useState('Click to Add');
 
@@ -40,7 +39,6 @@ const ProductCard = ({ product }) => {
 				payload: true
 			});
 		}
-
 	};
 
 	return (
@@ -66,10 +64,10 @@ const ProductCard = ({ product }) => {
 						View Product
 					</Link>,
 					<Tooltip title={toolTip}>
-						<div onClick={handleAddToCart}>
+						<div onClick={handleAddToCart} disabled={product.quantity < 1}>
 							<ShoppingCartOutlined className='text-red-500' />
 							<br />
-							Add to Cart
+							{product.length < 1 ? 'Sold Out' : 'Add to Cart'}
 						</div>
 					</Tooltip>
 				]}

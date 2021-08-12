@@ -1,25 +1,33 @@
 import React, { useState } from 'react';
 import { Card, Tabs, Tooltip } from 'antd';
-import { Link } from 'react-router-dom';
-import { ShoppingCartOutlined, HeartOutlined } from '@ant-design/icons';
+import {
+	ShoppingCartOutlined,
+	HeartOutlined,
+	HeartFilled
+} from '@ant-design/icons';
 import { Carousel } from 'react-responsive-carousel';
 import StarRating from 'react-star-ratings';
 import _ from 'lodash';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import ProductListItems from './ProductListItems.component';
 import Laptop from '../../images/laptop.png';
 import RatingModal from '../model/Rating-model.component';
 import showAverage from '../../utils/rating.utils';
+import { addToWishlist, removeWishlist } from '../../utils/user.utils';
 
 const { TabPane } = Tabs;
 
 const SingleProduct = ({ product, onStartClick, star }) => {
 	const { title, images, description, _id } = product;
 	const [toolTip, setToolTip] = useState('Click to Add');
+	const [addedWishlist, setAddedWishlist] = useState(false);
 
 	const dispatch = useDispatch();
+
+	const user = useSelector((state) => state.user);
 
 	const handleAddToCart = () => {
 		let cart = [];
@@ -41,6 +49,23 @@ const SingleProduct = ({ product, onStartClick, star }) => {
 			dispatch({
 				type: 'SET_VISIBLE',
 				payload: true
+			});
+		}
+	};
+
+	const handleAddToWishList = (e) => {
+		e.preventDefault();
+		if (!addedWishlist) {
+			addToWishlist(product._id, user.token)
+				.then((res) => {
+					res.data.ok && setAddedWishlist(true);
+				})
+				.catch((err) =>
+					toast.error('Some error occured. Please try again later.')
+				);
+		} else {
+			removeWishlist(product._id, user.token).then((res) => {
+				res.data.ok && setAddedWishlist(false);
 			});
 		}
 	};
@@ -93,11 +118,11 @@ const SingleProduct = ({ product, onStartClick, star }) => {
 								Add to Cart
 							</div>
 						</Tooltip>,
-						<Link to='/' className='text-danger'>
-							<HeartOutlined />
+						<div className='text-danger' onClick={handleAddToWishList}>
+							{!addedWishlist ? <HeartOutlined /> : <HeartFilled />}
 							<br />
-							Add to Wishlist
-						</Link>,
+							{!addedWishlist ? 'Add to Wishlist' : 'Remove from Wishlist'}
+						</div>,
 						<RatingModal>
 							<StarRating
 								name={_id}

@@ -17,10 +17,10 @@ const userSchema = new mongoose.Schema(
 			type: Array,
 			default: []
 		},
-		address: String
-		// wishlist: [{ type: ObjectId, ref: 'Product' }]
+		address: String,
+		wishlist: [{ type: ObjectId, ref: 'Product' }]
 	},
 	{ timestamp: true }
 );
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('User', userSchema);

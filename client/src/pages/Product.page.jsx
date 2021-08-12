@@ -17,7 +17,10 @@ const Product = ({ match }) => {
 	const user = useSelector((state) => state.user);
 
 	useEffect(() => {
-		loadSingleProduct();
+		getProduct(slug).then((res) => {
+			setProduct(res.data);
+			getRelated(res.data._id).then((res) => setRelated(res.data));
+		});
 	}, [slug]);
 
 	useEffect(() => {
@@ -39,7 +42,6 @@ const Product = ({ match }) => {
 	const onStartClick = (newRating, name) => {
 		setStar(newRating);
 		productStar(name, newRating, user.token).then((res) => {
-			console.log(res.data);
 			loadSingleProduct();
 		});
 	};

@@ -20,6 +20,8 @@
 		"mongoose": "^5.13.6",
 		"morgan": "^1.10.0",
 		"nodemon": "^2.0.12",
-		"slugify": "^1.6.0"
+		"slugify": "^1.6.0",
+		"stripe": "^8.168.0",
+		"uniqueid": "^1.0.0"
 	}
 }

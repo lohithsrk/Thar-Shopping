@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -16,6 +16,18 @@ const Cart = ({ history }) => {
 	};
 
 	const saveOrderToDb = () => {
+		userCart(cart, user.token)
+			.then((res) => {
+				if (res.data.ok) history.push('/checkout');
+			})
+			.catch((err) => console.log('Cart save error', err));
+	};
+
+	const saveCashOrderToDb = () => {
+		dispatch({
+			type: 'COD',
+			payload: true
+		});
 		userCart(cart, user.token)
 			.then((res) => {
 				if (res.data.ok) history.push('/checkout');
@@ -72,13 +84,23 @@ const Cart = ({ history }) => {
 						Total: <b>${getTotal()}</b>
 						<hr />
 						{user ? (
-							<button
-								onClick={saveOrderToDb}
-								className='btn btn-sm btn-primary mt-2 w-100'
-								disabled={!cart.length}
-							>
-								Proceed to checkout
-							</button>
+							<div>
+								<button
+									onClick={saveOrderToDb}
+									className='btn btn-sm btn-primary mt-2 w-100'
+									disabled={!cart.length}
+								>
+									Proceed to checkout
+								</button>
+								<br />
+								<button
+									onClick={saveCashOrderToDb}
+									className='btn btn-sm btn-primary mt-2 w-100'
+									disabled={!cart.length}
+								>
+									Pay Cash on Delivery
+								</button>
+							</div>
 						) : (
 							<button className='btn btn-sm btn-primary mt-2'>
 								<Link

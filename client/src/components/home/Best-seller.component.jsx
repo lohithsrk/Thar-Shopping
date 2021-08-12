@@ -12,20 +12,16 @@ const BestSeller = () => {
 	const [productsCount, setProductsCount] = useState(1);
 
 	useEffect(() => {
-		loadAllProducts();
-	}, [page]);
-
-	useEffect(() => {
-		getProductsCount().then((res) => setProductsCount(res.data));
-	}, []);
-
-	const loadAllProducts = () => {
 		setLoading(true);
 		getProducts('sold', 'desc', page).then((res) => {
 			setProducts(res.data);
 			setLoading(false);
 		});
-	};
+	}, [page]);
+
+	useEffect(() => {
+		getProductsCount().then((res) => setProductsCount(res.data));
+	}, []);
 
 	return (
 		<div>

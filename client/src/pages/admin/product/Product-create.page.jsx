@@ -35,11 +35,8 @@ const ProductCreate = () => {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		loadCategories();
-	}, []);
-
-	const loadCategories = () =>
 		getCategories().then((c) => setValues({ ...values, categories: c.data }));
+	}, [values]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();

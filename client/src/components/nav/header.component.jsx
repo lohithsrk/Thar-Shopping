@@ -43,17 +43,13 @@ const Header = () => {
 				className='flex items-center'
 			>
 				<div className='flex me-auto'>
-					<Item
-						key='home'
-						icon={<HomeOutlined className='icon' />}
-						className='me-auto'
-					>
+					<Item key='home' icon={<HomeOutlined />} className='me-auto'>
 						<Link to='/'>Home</Link>
 					</Item>
-					<Item key='shop' icon={<ShoppingOutlined className='icon' />}>
+					<Item key='shop' icon={<ShoppingOutlined />}>
 						<Link to='/shop'>Shop</Link>
 					</Item>
-					<Item key='cart' icon={<ShoppingCartOutlined className='icon' />}>
+					<Item key='cart' icon={<ShoppingCartOutlined />}>
 						<Link to='/cart'>
 							<Badge count={cart.length} offset={[9, 0]}>
 								Cart
@@ -64,7 +60,7 @@ const Header = () => {
 				{user ? (
 					<SubMenu
 						key='SubMenu'
-						icon={<SettingOutlined className='icon' />}
+						icon={<SettingOutlined />}
 						title={user.email && user.email.split('@')[0]}
 					>
 						{user && user.role === 'subscriber' && (
@@ -80,7 +76,7 @@ const Header = () => {
 						)}
 						<Item
 							key='setting:3'
-							icon={<LogoutOutlined className='icon' />}
+							icon={<LogoutOutlined />}
 							onClick={logoutUser}
 						>
 							Logout
@@ -88,10 +84,10 @@ const Header = () => {
 					</SubMenu>
 				) : (
 					<>
-						<Item key='login' icon={<UserOutlined className='icon' />}>
+						<Item key='login' icon={<UserOutlined />}>
 							<Link to='/login'>Login</Link>
 						</Item>
-						<Item key='register' icon={<UserAddOutlined className='icon' />}>
+						<Item key='register' icon={<UserAddOutlined />}>
 							<Link to='/register'>Register</Link>
 						</Item>
 					</>

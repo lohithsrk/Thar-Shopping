@@ -36,9 +36,19 @@ const ProductUpdate = ({ match, history }) => {
 	const { slug } = match.params;
 
 	useEffect(() => {
-		loadProduct();
-		loadCategories();
-	}, []);
+		getProduct(slug).then((p) => {
+			setValues({ ...values, ...p.data });
+			getCategorySubs(p.data.category._id).then((res) => {
+				setSubOptions(res.data);
+			});
+			let arr = [];
+			p.data.subs.map((s) => arr.push(s._id));
+			setArrayOfSubs((prev) => arr);
+		});
+		getCategories().then((c) => {
+			setCategories(c.data);
+		});
+	}, [values,slug]);
 
 	const loadProduct = () => {
 		getProduct(slug).then((p) => {
@@ -48,15 +58,9 @@ const ProductUpdate = ({ match, history }) => {
 			});
 			let arr = [];
 			p.data.subs.map((s) => arr.push(s._id));
-			console.log('ARR', arr);
 			setArrayOfSubs((prev) => arr);
 		});
 	};
-
-	const loadCategories = () =>
-		getCategories().then((c) => {
-			setCategories(c.data);
-		});
 
 	const handleSubmit = (e) => {
 		e.preventDefault();

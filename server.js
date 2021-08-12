@@ -26,15 +26,18 @@ app.use(compression());
 app.use(morgan('dev'));
 app.use(bobyParser.json({ limit: '2mb' }));
 app.use(cors());
-
 app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.join(__dirname, 'client/build')));
 	app.get('*', function (req, res) {
 		res.sendFile(path.join(__dirname, 'client/build', 'index.html'));  
-	}
+	});
 }
+
+app.get('/service-worker.js', (req, res) => {
+	res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
+});
 
 fs.readdirSync('./server/routes').map((route) =>
 	app.use('/api', require(`./server/routes/${route}`))

@@ -24,7 +24,7 @@ const FileUpload = ({ values, setValues, setLoading }) => {
 					(uri) => {
 						axios
 							.post(
-								`${process.env.REACT_APP_API}/uploadimage`,
+								`localhost:${process.env.PORT}/uploadimage`,
 								{ image: uri },
 								{
 									headers: {
@@ -52,7 +52,7 @@ const FileUpload = ({ values, setValues, setLoading }) => {
 		setLoading(true);
 		axios
 			.post(
-				`${process.env.REACT_APP_API}/removeImage`,
+				`localhost:${process.env.PORT}/removeImage`,
 				{ public_id },
 				{
 					headers: {

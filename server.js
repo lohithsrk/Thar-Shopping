@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bobyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
+const compression = require('compression');
 const path = require('path');
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
@@ -20,6 +21,7 @@ mongoose
 	.then(() => console.log('DATABASE CONNECTED'))
 	.catch((error) => console.log('ERROR IN DATABASE CONNECTION', error));
 
+app.use(compression());
 app.use(morgan('dev'));
 app.use(bobyParser.json({ limit: '2mb' }));
 app.use(cors());

@@ -17,7 +17,7 @@ const names = [
 ];
 
 mongoose
-	.connect('mongodb://localhost:27017/Thar-db', {
+	.connect('mongodb+srv://admin:l6Uoe6oaSysLCBtX@cluster0.eu474.mongodb.net/Thar-DB', {
 		useUnifiedTopology: true,
 		useNewUrlParser: true,
 		useCreateIndex: true,
@@ -35,9 +35,9 @@ const newproduct = async (req, res) => {
 				title: name,
 				slug: slug,
 				description: `Laptop by ${name}`,
-				price: '30000',
-				category: '6106ada69c2ffe49d4d91568',
-				subs: '6106adc79c2ffe49d4d91582',
+				price: '3000',
+				category: '',
+				subs: '',
 				quantity: 100,
 				sold: 50,
 				images: [

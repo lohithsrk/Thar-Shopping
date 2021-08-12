@@ -11,14 +11,12 @@ const AdminDashboard = () => {
 
 	useEffect(() => {
 		getOrders(user.token).then((res) => {
-			console.log(JSON.stringify(res.data, null, 4));
 			setOrders(res.data);
 		});
 	}, [user.token]);
 
 	const loadOrders = () =>
 		getOrders(user.token).then((res) => {
-			console.log(JSON.stringify(res.data, null, 4));
 			setOrders(res.data);
 		});
 

@@ -20,7 +20,7 @@ const SubList = () => {
 			<div className='row'>
 				{loading ? (
 					<h4 className='text-center'>Loading...</h4>
-				) : subs ? (
+				) : (
 					subs.map((sub) => (
 						<Link to={`/sub/${sub.slug}`} className='col' key={sub._id}>
 							<div className='btn btn-outline-primary d-block m-3'>
@@ -28,8 +28,6 @@ const SubList = () => {
 							</div>
 						</Link>
 					))
-				) : (
-					<h4>No Sub categories found</h4>
 				)}
 			</div>
 		</div>

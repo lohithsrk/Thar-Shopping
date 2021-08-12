@@ -9,8 +9,8 @@ import { auth, googleAuthProvider } from '../../firebase';
 import { LoadingOutlined } from '@ant-design/icons';
 
 const Login = ({ history }) => {
-	const [email, setEmail] = useState('srklohith05@gmail.com');
-	const [password, setPassword] = useState('llllll');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 	const [loading, setLoading] = useState(false);
 	const { user } = useSelector((state) => ({ ...state }));
 	const dispatch = useDispatch();
@@ -56,10 +56,10 @@ const Login = ({ history }) => {
 							_id: res.data._id
 						}
 					});
+					toast.success('Logged in successfully');
 					roleBasedRedirect(res);
 				})
 				.catch((error) => console.log(error));
-			toast.success('Logged in successfully');
 			// history.push('/');
 		} catch (error) {
 			toast.error(error.message);
@@ -86,9 +86,9 @@ const Login = ({ history }) => {
 							}
 						});
 						roleBasedRedirect(res);
+						toast.success('Logged in successfully');
 					})
-					.catch((error) => console.log(error));
-				toast.success('Logged in successfully');
+					.catch((error) => console.log('CREATE OR UPDATE USER', error));
 				// history.push('/');
 			})
 			.catch((error) => {

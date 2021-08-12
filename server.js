@@ -11,10 +11,9 @@ const enforce = require('express-sslify');
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 8000;
 
 mongoose
-	.connect(process.env.DATABASE || 'mongodb://localhost:27017/thar-db', {
+	.connect('mongodb://localhost:27017/thar-db', {
 		useUnifiedTopology: true,
 		useNewUrlParser: true,
 		useCreateIndex: true,
@@ -44,6 +43,6 @@ fs.readdirSync('./routes').map((route) =>
 	app.use('/api', require(`./routes/${route}`))
 );
 
-app.listen(PORT, () =>
-	console.log(`Server is running on PORT ${process.env.PORT}...`)
+app.listen(process.env.PORT || 8000, () =>
+	console.log(`Server is running on PORT ${process.env.PORT || 8000}...`)
 );

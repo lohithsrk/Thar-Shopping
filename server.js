@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bobyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
+const path = require('path');
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
@@ -23,8 +24,14 @@ app.use(morgan('dev'));
 app.use(bobyParser.json({ limit: '2mb' }));
 app.use(cors());
 
-fs.readdirSync('./routes').map((route) =>
-	app.use('/api', require(`./routes/${route}`))
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('*', function (req, res) {
+	res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+fs.readdirSync('./server/routes').map((route) =>
+	app.use('/api', require(`./server/routes/${route}`))
 );
 
 app.listen(process.env.PORT, () =>

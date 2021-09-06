@@ -35,7 +35,7 @@ const RegisterComplete = ({ history }) => {
 			if (result.user.emailVerified) {
 				window.localStorage.removeItem('emailForRegistration');
 				let user = auth.currentUser;
-				await user.updatePassword(password);
+			await user.updatePassword(password);
 				const idTokenResult = await user.getIdTokenResult();
 				createOrUpdateUser(idTokenResult.token)
 					.then((res) => {
